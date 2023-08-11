@@ -1,0 +1,2 @@
+Paquete que contendrá una instancia de Retrofit durante la ejecución del aplicación.
+Implementaremos un singleton

@@ -1,0 +1,2 @@
+paquete que contiene todo lo referido con la vista.
+Las views, el model-view y el adaptador para el recyclerview.

@@ -1,0 +1,4 @@
+Paquete que implementa el servicio encargado de recuperar los datos de Retrofit
+Será el encargado de implementar la respuesta de Retrofit
+Contendrá la interfaz (contrato con la API)
+1.- Método Get.

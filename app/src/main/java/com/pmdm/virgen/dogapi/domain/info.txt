@@ -1,0 +1,3 @@
+Paquete que contendrá los casos de uso. En la primera versión contendrá sólo un caso de uso
+que será la obtención de todos los objetos de la API.
+Se pueden ir añadiendo más casos de uso, pero de momento no.

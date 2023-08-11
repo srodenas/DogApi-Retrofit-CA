@@ -1,0 +1,2 @@
+Paquete con las clases del modelo de negocio. Contiene un subpaquete porque considero
+que ahí debería ir la respuesta que retrofit nos proporciona y es parte del modelo.
