@@ -13,8 +13,9 @@ class RepositotyApi (var breed: String ){
      */
     suspend fun getDogs(): List<String>{
         val response : ResponseDog ? = dogService.getDogs()
-        response.let {
-            DogsRepository.dogs = it!!.listDogs  //los cargo en memoria
+        response.let { response ->
+            if (response != null)
+                DogsRepository.dogs = response.listDogs  //los cargo en memoria
         }
         return DogsRepository.dogs  //He cargado los perros y devuelvo la lista que me pide.
     }
