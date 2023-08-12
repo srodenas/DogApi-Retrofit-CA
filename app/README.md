@@ -1,7 +1,14 @@
 Pasos para la implementación de este ejemplo:
 
-1.- Creo el modelo Dog
 
-2.- Implementamos toda la lógica para Retrofit.
+1.- Dependencias y permisos en manifest. 
 
-3.- Montamos la arquitectura mvvm
+2.- Creo el modelo Dog
+
+3.- Implementamos toda la lógica para Retrofit.
+
+4.- Montamos la arquitectura mvvm
+
+<-- primer commit -->
+
+w
