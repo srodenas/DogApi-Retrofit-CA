@@ -8,16 +8,20 @@ import kotlinx.coroutines.launch
 
 class DogViewModel : ViewModel() {
     var dogListLiveData = MutableLiveData<List<String>>()  //Creamos la lista a observar.
+    var progressBarLiveData = MutableLiveData<Boolean>()  //para la barra de progreso.
     val getDogsRepositoryUseCase = GetDogsRepositoryUseCase()  //Creo el repositorio
+
 
 
     //Nos traemos los datos y los cargamos al inicialiar el objeto.
     init {
         viewModelScope.launch {
+            progressBarLiveData.postValue(true)  //se ve.
             getDogsRepositoryUseCase.initRepository("maltese") //esto es superfeo, pero para ver como funciona.
             val result: List<String>? = getDogsRepositoryUseCase()
             result.let { myList ->
                 dogListLiveData.postValue(myList)  //notificamos el cambio y el observer se enterará
+                progressBarLiveData.postValue(false)
             }
         }
     }

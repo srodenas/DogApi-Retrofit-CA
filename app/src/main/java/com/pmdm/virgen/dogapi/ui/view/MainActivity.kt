@@ -3,21 +3,14 @@ package com.pmdm.virgen.dogapi.ui.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pmdm.virgen.dogapi.R
-import com.pmdm.virgen.dogapi.data.data_network.service.RepositotyApi
-import com.pmdm.virgen.dogapi.data.model.model_network.ResponseDog
 import com.pmdm.virgen.dogapi.databinding.ActivityMainBinding
-import com.pmdm.virgen.dogapi.domain.GetDogsRepositoryUseCase
 import com.pmdm.virgen.dogapi.test.TestApi
 import com.pmdm.virgen.dogapi.ui.adapter.DogAdapter
 import com.pmdm.virgen.dogapi.ui.modelview.DogViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +37,12 @@ class MainActivity : AppCompatActivity() {
                 adapter.dogRepository = myList!!  //aseguro los datos.
                 binding.myRecyclerPpal.adapter = adapter  //le asigno el adapter.
                 adapter.notifyDataSetChanged()  //No hace falta, pero por si acaso.
+            }
+        )
+
+        dogViewModel.progressBarLiveData.observe(
+            this, { visible ->
+                binding.progressBar.isVisible = visible
             }
         )
     }
