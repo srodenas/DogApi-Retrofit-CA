@@ -2,6 +2,8 @@ package com.pmdm.virgen.dogapi.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pmdm.virgen.dogapi.R
@@ -11,6 +13,7 @@ import com.pmdm.virgen.dogapi.databinding.ActivityMainBinding
 import com.pmdm.virgen.dogapi.domain.GetDogsRepositoryUseCase
 import com.pmdm.virgen.dogapi.test.TestApi
 import com.pmdm.virgen.dogapi.ui.adapter.DogAdapter
+import com.pmdm.virgen.dogapi.ui.modelview.DogViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,16 +24,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        registerLiveData()
         init()  //inicializa la clase
        // testApiDog3()  //para el testeo de retrofit
 
     }
 
+
     private lateinit var adapter : DogAdapter
     private lateinit var binding : ActivityMainBinding
-    private val getDogsRepositoryUseCase = GetDogsRepositoryUseCase() //me creo el primer caso de uso
+    private val dogViewModel : DogViewModel by viewModels()
 
 
+
+    private fun registerLiveData() {
+        dogViewModel.dogListLiveData.observe(
+            this, {  myList->
+                //Aquí hacemos la actualización del adapter.
+                adapter.dogRepository = myList!!  //aseguro los datos.
+                binding.myRecyclerPpal.adapter = adapter  //le asigno el adapter.
+                adapter.notifyDataSetChanged()  //No hace falta, pero por si acaso.
+            }
+        )
+    }
 
 
     /*
@@ -39,22 +55,10 @@ class MainActivity : AppCompatActivity() {
     2.- Llamo al caso de uso pasándole como ejemplo maltese
     3.- lanzo la corrutina con la devolución de los datos.
     4.- asigno el adapter al recycler view.
-
-
      */
     private fun init(){
         initRecyclerView()
         adapter = DogAdapter()
-        //Sin viewModel. Ahora recupero los datos de retrotit.
-        getDogsRepositoryUseCase.initRepository("maltese")  //le paso el tipo de perro de ejemplo.
-        lifecycleScope.launch{
-            val result: List<String>? = getDogsRepositoryUseCase()
-            result.let {
-                adapter.dogRepository = it!!  //aseguro los datos.
-            }
-
-            binding.myRecyclerPpal.adapter = adapter  //le asigno el adapter.
-        }
     }
 
 
